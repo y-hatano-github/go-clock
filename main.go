@@ -9,7 +9,7 @@ import (
 
 const centerX = 30
 const centerY = 12
-const axisX = 22
+const axisX = 20
 const axisY = 10
 
 func main() {

@@ -1,3 +1,4 @@
+![goclock](goclock.gif)
 
 # What is this?
 Analog clock written in Golang.
