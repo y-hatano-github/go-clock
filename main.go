@@ -129,10 +129,10 @@ func drawLine(x1, y1, x2, y2 int, ch rune, fg termbox.Attribute, bg termbox.Attr
 	}
 }
 
-func drawHand(time, cx, cy, h, v, br int, ch rune, fg termbox.Attribute, bg termbox.Attribute) {
+func drawHand(time, cx, cy, h, v, dg int, ch rune, fg termbox.Attribute, bg termbox.Attribute) {
 
-	x := float64(h) * math.Cos(float64(br*time-90)*3.14/180)
-	y := float64(v) * math.Sin(float64(br*time-90)*3.14/180)
+	x := float64(h) * math.Cos(float64(dg*time-90)*3.14/180)
+	y := float64(v) * math.Sin(float64(dg*time-90)*3.14/180)
 
 	drawLine(cx, cy, cx+int(x), cy+int(y), ch, fg, bg)
 }
