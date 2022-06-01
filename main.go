@@ -56,22 +56,26 @@ func keyEvent(key chan string) {
 func drawClock() {
 	t := time.Now()
 	termbox.Clear(termbox.ColorWhite, termbox.ColorDefault)
-	drawCircle(centerX, centerY, axisX+1, axisY+1, ' ', termbox.ColorWhite, termbox.ColorWhite)
+	drawCircle(centerX, centerY, axisX, axisY, 1, ' ', termbox.ColorWhite, termbox.ColorWhite)
+	drawCircle(centerX, centerY, axisX-2, axisY-1, 30, ' ', termbox.ColorBlack, termbox.ColorRed) // HourMark
 	drawHand(t.Second(), centerX, centerY, axisX, axisY, 360/60, ' ', termbox.ColorWhite, termbox.ColorGreen)
 	drawHand(t.Minute(), centerX, centerY, axisX, axisY, 360/60, ' ', termbox.ColorWhite, termbox.ColorCyan)
-	drawHand(t.Hour(), centerX, centerY, axisX-2, axisY-2, 360/12, ' ', termbox.ColorWhite, termbox.ColorBlue)
+	drawHand(t.Hour()*5+int(t.Minute()/12), centerX, centerY, axisX-4, axisY-2, 360/60, ' ', termbox.ColorWhite, termbox.ColorBlue)
 	termbox.SetCell(centerX, centerY, ' ', termbox.ColorWhite, termbox.ColorWhite)
 	termbox.Flush()
 }
 
-func drawCircle(cx, cy, h, v int, ch rune, fg termbox.Attribute, bg termbox.Attribute) {
-	for i := 0; i <= 90; i++ {
+func drawCircle(cx, cy, h, v, s int, ch rune, fg termbox.Attribute, bg termbox.Attribute) {
+	if s < 0 {
+		s = 1
+	}
+	for i := 0; i <= 90; i += s {
 		x := float64(h) * math.Cos(float64(i)*3.14/180)
 		y := float64(v) * math.Sin(float64(i)*3.14/180)
-		termbox.SetCell(cx+int(x), cy-int(y), ch, fg, bg) // 0 to 90 degrees
-		termbox.SetCell(cx+int(x), cy+int(y), ch, fg, bg) // 90 to 180 degrees
-		termbox.SetCell(cx-int(x), cy+int(y), ch, fg, bg) // 180 to 270 degrees
-		termbox.SetCell(cx-int(x), cy-int(y), ch, fg, bg) // 270 to 360 degrees
+		termbox.SetCell(cx-int(x), cy-int(y), ch, fg, bg) // 0 to 90 degrees
+		termbox.SetCell(cx+int(x), cy-int(y), ch, fg, bg) // 90 to 180 degrees
+		termbox.SetCell(cx+int(x), cy+int(y), ch, fg, bg) // 180 to 270 degrees
+		termbox.SetCell(cx-int(x), cy+int(y), ch, fg, bg) // 270 to 360 degrees
 	}
 }
 
