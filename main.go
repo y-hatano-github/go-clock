@@ -68,8 +68,8 @@ func drawCircle(cx, cy, h, v int, ch rune, fg termbox.Attribute, bg termbox.Attr
 	for i := 0; i <= 90; i++ {
 		x := float64(h) * math.Cos(float64(i)*3.14/180)
 		y := float64(v) * math.Sin(float64(i)*3.14/180)
-		termbox.SetCell(cx+int(x), cy+int(y), ch, fg, bg) // 0 to 90 degrees
-		termbox.SetCell(cx+int(x), cy-int(y), ch, fg, bg) // 90 to 180 degrees
+		termbox.SetCell(cx+int(x), cy-int(y), ch, fg, bg) // 0 to 90 degrees
+		termbox.SetCell(cx+int(x), cy+int(y), ch, fg, bg) // 90 to 180 degrees
 		termbox.SetCell(cx-int(x), cy+int(y), ch, fg, bg) // 180 to 270 degrees
 		termbox.SetCell(cx-int(x), cy-int(y), ch, fg, bg) // 270 to 360 degrees
 	}
