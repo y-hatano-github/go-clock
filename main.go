@@ -56,11 +56,11 @@ func keyEvent(key chan string) {
 func drawClock() {
 	t := time.Now()
 	termbox.Clear(termbox.ColorWhite, termbox.ColorDefault)
-	drawCircle(centerX, centerY, axisX, axisY, 1, ' ', termbox.ColorWhite, termbox.ColorWhite)
 	drawCircle(centerX, centerY, axisX-2, axisY-1, 30, ' ', termbox.ColorBlack, termbox.ColorRed) // HourMark
-	drawHand(t.Second(), centerX, centerY, axisX, axisY, 360/60, ' ', termbox.ColorWhite, termbox.ColorGreen)
 	drawHand(t.Minute(), centerX, centerY, axisX, axisY, 360/60, ' ', termbox.ColorWhite, termbox.ColorCyan)
-	drawHand(t.Hour()*5+int(t.Minute()/12), centerX, centerY, axisX-4, axisY-2, 360/60, ' ', termbox.ColorWhite, termbox.ColorBlue)
+	drawHand(t.Hour()*5+int(t.Minute()/12), centerX, centerY, axisX-6, axisY-3, 360/60, ' ', termbox.ColorWhite, termbox.ColorBlue)
+	drawHand(t.Second(), centerX, centerY, axisX, axisY, 360/60, ' ', termbox.ColorWhite, termbox.ColorGreen)
+	drawCircle(centerX, centerY, axisX, axisY, 1, ' ', termbox.ColorWhite, termbox.ColorWhite)
 	termbox.SetCell(centerX, centerY, ' ', termbox.ColorWhite, termbox.ColorWhite)
 	termbox.Flush()
 }
