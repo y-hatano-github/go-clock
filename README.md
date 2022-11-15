@@ -1,7 +1,7 @@
 ![goclock](goclock.gif)
 
 # What is this?
-Analog clock written in Golang.
+CUI base analog clock written in Golang.
 
 ## How to get and run the code.
 ### 1st step
