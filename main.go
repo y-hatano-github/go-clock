@@ -5,6 +5,7 @@ import (
 	"time"
 
 	termbox "github.com/nsf/termbox-go"
+	c "github.com/y-hatano-github/coordin"
 )
 
 const centerX = 30
@@ -56,87 +57,34 @@ func keyEvent(key chan string) {
 func drawClock() {
 	t := time.Now()
 	termbox.Clear(termbox.ColorWhite, termbox.ColorDefault)
-	drawCircle(centerX, centerY, axisX-2, axisY-1, 30, ' ', termbox.ColorBlack, termbox.ColorRed) // HourMark
-	drawHand(t.Minute(), centerX, centerY, axisX, axisY, 360/60, ' ', termbox.ColorWhite, termbox.ColorCyan)
-	drawHand(t.Hour()*5+int(t.Minute()/12), centerX, centerY, axisX-6, axisY-3, 360/60, ' ', termbox.ColorWhite, termbox.ColorBlue)
-	drawHand(t.Second(), centerX, centerY, axisX, axisY, 360/60, ' ', termbox.ColorWhite, termbox.ColorGreen)
-	drawCircle(centerX, centerY, axisX, axisY, 1, ' ', termbox.ColorWhite, termbox.ColorWhite)
-	termbox.SetCell(centerX, centerY, ' ', termbox.ColorWhite, termbox.ColorWhite)
+
+	h := func(time, cx, cy, h, v, dg int) c.Points {
+		d := float64(dg*time - 90)
+		x := float64(h) * math.Cos(float64(d)*3.14/180)
+		y := float64(v) * math.Sin(float64(d)*3.14/180)
+
+		return c.Line(c.Point{X: cx, Y: cy}, c.Point{X: cx + int(x), Y: cy + int(y)})
+	}
+
+	hm := c.Circled(centerX, centerY, axisX-2, axisY-1, 30) // HourMark
+
+	hh := h(t.Hour()*5+int(t.Minute()/12), centerX, centerY, axisX-6, axisY-3, 360/60) // hours hand
+	mh := h(t.Minute(), centerX, centerY, axisX, axisY, 360/60)                        // minutes hand
+	sh := h(t.Second(), centerX, centerY, axisX, axisY, 360/60)                        // seconds hand
+	f, _ := c.Circle(centerX, centerY, axisX, axisY)                                   // frame
+
+	setCell(hm, ' ', termbox.ColorWhite, termbox.ColorRed)
+	setCell(hh, ' ', termbox.ColorWhite, termbox.ColorBlue)
+	setCell(mh, ' ', termbox.ColorWhite, termbox.ColorCyan)
+	setCell(sh, ' ', termbox.ColorWhite, termbox.ColorGreen)
+	setCell(f, ' ', termbox.ColorWhite, termbox.ColorWhite)
+	setCell(c.Points{c.Point{X: centerX, Y: centerY}}, ' ', termbox.ColorWhite, termbox.ColorWhite)
+
 	termbox.Flush()
 }
 
-func drawCircle(cx, cy, h, v, s int, ch rune, fg termbox.Attribute, bg termbox.Attribute) {
-	if s < 0 {
-		s = 1
+func setCell(ps c.Points, ch rune, fg termbox.Attribute, bg termbox.Attribute) {
+	for _, p := range ps {
+		termbox.SetCell(p.X, p.Y, ch, fg, bg)
 	}
-	for i := 0; i <= 90; i += s {
-		x := float64(h) * math.Cos(float64(i)*3.14/180)
-		y := float64(v) * math.Sin(float64(i)*3.14/180)
-		termbox.SetCell(cx-int(x), cy-int(y), ch, fg, bg) // 0 to 90 degrees
-		termbox.SetCell(cx+int(x), cy-int(y), ch, fg, bg) // 90 to 180 degrees
-		termbox.SetCell(cx+int(x), cy+int(y), ch, fg, bg) // 180 to 270 degrees
-		termbox.SetCell(cx-int(x), cy+int(y), ch, fg, bg) // 270 to 360 degrees
-	}
-}
-
-func drawLine(x1, y1, x2, y2 int, ch rune, fg termbox.Attribute, bg termbox.Attribute) {
-
-	var dx, dy, sx, sy int
-
-	if x2 > x1 {
-		sx = 1
-	} else {
-		sx = -1
-	}
-	if x2 > x1 {
-		dx = x2 - x1
-	} else {
-		dx = x1 - x2
-	}
-	if y2 > y1 {
-		sy = 1
-	} else {
-		sy = -1
-	}
-	if y2 > y1 {
-		dy = y2 - y1
-	} else {
-		dy = y1 - y2
-	}
-
-	x := x1
-	y := y1
-
-	if dx >= dy {
-		e := -dx
-		for i := 0; i <= dx; i++ {
-			termbox.SetCell(x, y, ch, fg, bg)
-			x += sx
-			e += 2 * dy
-			if e >= 0 {
-				y += sy
-				e -= 2 * dx
-			}
-		}
-
-	} else {
-		e := -dy
-		for i := 0; i <= dy; i++ {
-			termbox.SetCell(x, y, ch, fg, bg)
-			y += sy
-			e += 2 * dx
-			if e >= 0 {
-				x += sx
-				e -= 2 * dy
-			}
-		}
-	}
-}
-
-func drawHand(time, cx, cy, h, v, dg int, ch rune, fg termbox.Attribute, bg termbox.Attribute) {
-
-	x := float64(h) * math.Cos(float64(dg*time-90)*3.14/180)
-	y := float64(v) * math.Sin(float64(dg*time-90)*3.14/180)
-
-	drawLine(cx, cy, cx+int(x), cy+int(y), ch, fg, bg)
 }

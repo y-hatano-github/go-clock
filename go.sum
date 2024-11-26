@@ -2,3 +2,7 @@ github.com/mattn/go-runewidth v0.0.9 h1:Lm995f3rfxdpd6TSmuVCHVb/QhupuXlYr8sCI/Qd
 github.com/mattn/go-runewidth v0.0.9/go.mod h1:H031xJmbD/WCDINGzjvQ9THkh0rPKHF+m2gUSrubnMI=
 github.com/nsf/termbox-go v1.1.1 h1:nksUPLCb73Q++DwbYUBEglYBRPZyoXJdrj5L+TkjyZY=
 github.com/nsf/termbox-go v1.1.1/go.mod h1:T0cTdVuOwf7pHQNtfhnEbzHbcNyCEcVU4YPpouCbVxo=
+github.com/y-hatano-github/coordin v0.0.0-20241126024134-ddcb0832c65e h1:0j1W+fnQYIyDnM5pD9lcql7eumWQroJKQEWzYSWWGTk=
+github.com/y-hatano-github/coordin v0.0.0-20241126024134-ddcb0832c65e/go.mod h1:uQLqBa9eRDN1j/A5VAMCGmQcCcEJ77v1uXWGMVwCa90=
+github.com/y-hatano-github/coordin v0.0.0-20241127005129-681b7ce9f55b h1:tCwZwEQOHxX8glNOiM109GA/eG3E2YuViqXM4KDOHY0=
+github.com/y-hatano-github/coordin v0.0.0-20241127005129-681b7ce9f55b/go.mod h1:uQLqBa9eRDN1j/A5VAMCGmQcCcEJ77v1uXWGMVwCa90=
