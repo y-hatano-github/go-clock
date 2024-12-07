@@ -73,18 +73,18 @@ func drawClock() {
 	sh := h(t.Second(), centerX, centerY, axisX, axisY, 360/60)                        // seconds hand
 	f, _ := c.Circle(centerX, centerY, axisX, axisY)                                   // frame
 
-	setCell(hm, ' ', termbox.ColorWhite, termbox.ColorRed)
-	setCell(hh, ' ', termbox.ColorWhite, termbox.ColorBlue)
-	setCell(mh, ' ', termbox.ColorWhite, termbox.ColorCyan)
-	setCell(sh, ' ', termbox.ColorWhite, termbox.ColorGreen)
-	setCell(f, ' ', termbox.ColorWhite, termbox.ColorWhite)
-	setCell(c.Points{c.Point{X: centerX, Y: centerY}}, ' ', termbox.ColorWhite, termbox.ColorWhite)
+	setCell(hm, termbox.ColorWhite, termbox.ColorRed)
+	setCell(hh, termbox.ColorWhite, termbox.ColorBlue)
+	setCell(mh, termbox.ColorWhite, termbox.ColorCyan)
+	setCell(sh, termbox.ColorWhite, termbox.ColorGreen)
+	setCell(f, termbox.ColorWhite, termbox.ColorWhite)
+	setCell(c.Points{c.Point{X: centerX, Y: centerY}}, termbox.ColorWhite, termbox.ColorWhite)
 
 	termbox.Flush()
 }
 
-func setCell(ps c.Points, ch rune, fg termbox.Attribute, bg termbox.Attribute) {
+func setCell(ps c.Points, fg termbox.Attribute, bg termbox.Attribute) {
 	for _, p := range ps {
-		termbox.SetCell(p.X, p.Y, ch, fg, bg)
+		termbox.SetCell(p.X, p.Y, ' ', fg, bg)
 	}
 }
