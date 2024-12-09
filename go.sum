@@ -6,3 +6,5 @@ github.com/y-hatano-github/coordin v0.0.0-20241126024134-ddcb0832c65e h1:0j1W+fn
 github.com/y-hatano-github/coordin v0.0.0-20241126024134-ddcb0832c65e/go.mod h1:uQLqBa9eRDN1j/A5VAMCGmQcCcEJ77v1uXWGMVwCa90=
 github.com/y-hatano-github/coordin v0.0.0-20241127005129-681b7ce9f55b h1:tCwZwEQOHxX8glNOiM109GA/eG3E2YuViqXM4KDOHY0=
 github.com/y-hatano-github/coordin v0.0.0-20241127005129-681b7ce9f55b/go.mod h1:uQLqBa9eRDN1j/A5VAMCGmQcCcEJ77v1uXWGMVwCa90=
+github.com/y-hatano-github/coordin v0.1.0 h1:MtH6pBg/EcLm1mYq2rDBCEkl2B+460M2L3uqwl7ijA0=
+github.com/y-hatano-github/coordin v0.1.0/go.mod h1:uQLqBa9eRDN1j/A5VAMCGmQcCcEJ77v1uXWGMVwCa90=
